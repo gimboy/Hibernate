@@ -2,6 +2,8 @@ package org.example;
 
 import org.example.model.Director;
 import org.example.model.Movie;
+import org.example.model.Principal;
+import org.example.model.School;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -18,7 +20,7 @@ import java.util.List;
 public class App {
     public static void main( String[] args ) {
 
-        Configuration configuration = new Configuration().addAnnotatedClass(Director.class).addAnnotatedClass(Movie.class);
+        Configuration configuration = new Configuration().addAnnotatedClass(Principal.class).addAnnotatedClass(School.class);
 
         SessionFactory sessionFactory = configuration.buildSessionFactory();
         Session session = sessionFactory.getCurrentSession();
@@ -26,10 +28,8 @@ public class App {
         try {
             session.beginTransaction();
 
-            Director directorTimur = session.get(Director.class,7);
-            Movie movie = directorTimur.getMovieList().stream().filter(x->x.getId()==12).findAny().orElse(null);
+            Principal director = session.get(Principal.class,6);
 
-            session.remove(movie);
 
             session.getTransaction().commit();
         }
